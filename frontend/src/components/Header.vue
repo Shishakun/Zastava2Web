@@ -1,22 +1,18 @@
 <template>
-  <header >
-    <nav class="border-b-[3px] border-orangeGod ">
-      <div class="flex justify-between items-center py-3 px-24">
-        <div
-          class="ml-1 flex flex-row gap-2.5 font-mono items-center justify-center"
-        >
-          <a
-            class="xl:text-2xl text-lg font-roboto font-semibold hover:text-red-500 text-[#FF7E00]"
-            href=""
-          >
-            My<span class="text-blueGod">Voice's</span></a
-          >
-        </div>
-      </div>
+  <header>
+    <nav class="bg-blue-700 py-4 px-6 flex justify-between items-center">
+      <BaseIcon name="menu" class="w-6 h-6 text-whitesmoke" />
+      <a class="text-gray-200 font-bold text-xs">{{ projectName }}</a>
     </nav>
   </header>
 </template>
 
 <script>
-export default {};
+import BaseIcon from "./BaseIcon.vue";
+export default {
+  components: {
+    BaseIcon,
+  },
+  props: ["projectName"],
+};
 </script>
