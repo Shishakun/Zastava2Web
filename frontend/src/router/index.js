@@ -6,8 +6,15 @@ const routes = [
     name: "home",
 
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/MainPage.vue"),
+      import("../views/MainPage.vue"),
   },
+  {
+    path: "/face",
+    name: "faceRecognition",
+
+    component: () =>
+      import("../views/FaceRecognitionPage.vue"),
+  }
 ];
 
 const router = createRouter({

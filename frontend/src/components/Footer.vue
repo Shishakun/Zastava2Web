@@ -1,12 +1,12 @@
 <template>
-  <footer class="text-center text-black border-t-[3px] border-gray-700">
+  <footer class="text-center text-whitesmoke border-t-[1px] border-gray-500 hover:border-gray-300 duration-150">
     <div class="">
       <div class="flex justify-center">
         <a
           href="https://github.com/K-Team-Coders/MyVoice"
           target="_blank"
           type="button"
-          class="rounded-lg border-2 border-gray-700 text-gray-700 leading-normal uppercase hover:border-gray-600 hover:shadow-inner hover:bg-gray-500 hover:text-whitesmoke focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-32 h-12 m-6"
+          class="rounded-lg border-2 border-gray-500 text-gray-500 leading-normal uppercase hover:border-gray-300 hover:shadow-inner hover:bg-gray-800 hover:text-whitesmoke focus:outline-none focus:ring-0 transition duration-150 ease-in-out w-32 h-12 m-6"
         >
           <svg
             aria-hidden="true"
