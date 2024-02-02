@@ -3,7 +3,6 @@ import cv2
 import face_recognition
 import numpy as np
 import logging
-import matplotlib.pyplot as plt
 
 
 def face_confidence(face_distance, face_match_threshold=0.6):
@@ -14,8 +13,8 @@ def face_confidence(face_distance, face_match_threshold=0.6):
         return round(linear_val * 100, 2)
     else:
         value = (
-            linear_val + ((1.0 - linear_val) * np.power((linear_val - 0.5) * 2, 0.2))
-        ) * 100
+                        linear_val + ((1.0 - linear_val) * np.power((linear_val - 0.5) * 2, 0.2))
+                ) * 100
         return round(value, 2)
 
 
@@ -38,7 +37,7 @@ if os.path.isdir(people_folder):
             image_path = os.path.join(folder_path, image)
             logger.debug(image_path)
             face_image = face_recognition.load_image_file(image_path)
-            face_encoding = face_recognition.face_encodings(face_image)[0]
+            face_encoding = face_recognition.face_encodings(face_image)
             logger.debug(face_encoding)
 
             known_face_encodings.append(face_encoding)
@@ -46,14 +45,16 @@ if os.path.isdir(people_folder):
             logger.debug(f"Loaded {image_path} for {folder}")
 # Initialize video capture
 video_capture_face_recognition = cv2.VideoCapture(0)
+
 logger.debug('Камера запущена')
 # Initialize consecutive detections counter
 logger.debug(video_capture_face_recognition)
 consecutive_detections = 0
 
 while True:
-    ret, frame = video_capture_face_recognition.read()
-
+    result = video_capture_face_recognition.read()
+    ret = result[0]
+    frame = result[1]
     if ret:
         # Resize frame
         small_frame = cv2.resize(frame, (330, 330), fx=0.25, fy=0.25)
@@ -82,7 +83,7 @@ while True:
 
         # Iterate over face encodings and locations
         for face_encoding, (top, right, bottom, left) in zip(
-            face_encodings, face_locations
+                face_encodings, face_locations
         ):
             # Initialize name and confidence
             name = "unknown"
@@ -125,9 +126,8 @@ while True:
         # Display frame
         cv2.imshow('Video', rgb_small_frame)
         # Exit if 'q' key is pressed
-        if cv2.waitKey(1):
+        if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
 # Release video capture and close windows
 video_capture_face_recognition.release()
 cv2.destroyAllWindows()
