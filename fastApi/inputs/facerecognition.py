@@ -4,6 +4,7 @@ import face_recognition
 import numpy as np
 import logging
 import matplotlib.pyplot as plt
+import math
 
 
 def face_confidence(face_distance, face_match_threshold=0.6):
@@ -11,13 +12,13 @@ def face_confidence(face_distance, face_match_threshold=0.6):
     linear_val = (1.0 - face_distance) / (range * 2.0)
 
     if face_distance > face_match_threshold:
-        return round(linear_val * 100, 2)
+        return str(round(linear_val * 100, 2)) + "%"
     else:
         value = (
-            linear_val + ((1.0 - linear_val) *
-                          np.power((linear_val - 0.5) * 2, 0.2))
+            linear_val
+            + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))
         ) * 100
-        return round(value, 2) + '%'
+        return str(round(value, 2)) + "%"
 
 
 # Create logger
@@ -47,6 +48,7 @@ class FaceRecognition:
             self.known_face_encodings.append(face_encoding)
             self.known_face_names.append(image)
             logger.debug(self.known_face_names)
+
     def run_recognition(self):
         # Initialize video capture
         video_capture_face_recognition = cv2.VideoCapture(0)
@@ -60,7 +62,7 @@ class FaceRecognition:
 
             if self.process_current_frame:
                 # Resize frame
-                small_frame = cv2.resize(frame, (330, 330), fx=0.25, fy=0.25)
+                small_frame = cv2.resize(frame, (0, 0), fx=0.25, fy=0.25)
 
                 # Convert to RGB
                 rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
@@ -100,21 +102,24 @@ class FaceRecognition:
                     best_match_index = np.argmin(face_distances)
 
                     # If match found, update name and confidence
-                    if matches[best_match_index] < 0.6:
+                    if matches[best_match_index]:
                         name = self.known_face_names[best_match_index]
                         confidence = face_confidence(
                             face_distances[best_match_index])
+
+                    logger.debug(name)
+                    logger.debug(confidence)
 
                     # Append face name to list
                     self.face_names.append(f"{name} ({confidence}%)")
 
             self.process_current_frame = not self.process_current_frame
             # Draw rectangles around faces
-            for (top, right, bottom, left), name in zip(self.face_locations, self.face_names):
-                top *= 1
-                right *= 1
-                bottom *= 1
-                left *= 1
+            for (top, right, bottom, left), name in zip(reversed(self.face_locations), reversed(self.face_names)):
+                top *= 4
+                right *= 4
+                bottom *= 4
+                left *= 4
 
                 cv2.rectangle(frame, (left, top),
                               (right, bottom), (0, 255, 0), 1)
@@ -124,7 +129,7 @@ class FaceRecognition:
                     name,
                     (left + 6, bottom - 6),
                     cv2.FONT_HERSHEY_DUPLEX,
-                    0.8,
+                    0.6,
                     (255, 255, 255),
                     1,
                 )

@@ -36,27 +36,27 @@
   </div>
 </template>
 <script>
-import VideoPlay from "./VideoPlay.vue";
-import axios from "axios";
+import VideoPlay from './VideoPlay.vue'
+import axios from 'axios'
 
 export default {
-  data() {
+  data () {
     return {
       activeButton: null,
-      searchInput: "",
+      searchInput: '',
       data: [
         {
           id: 1,
-          image: "/img/111.jpg",
-          zvanie: "Полковник",
-          surname: "Шишкарев",
-          name: "Захар",
-          otch: "Андреевич",
-          otdel: "1 отдел КККГЫРОС",
-        },
-      ],
-    };
+          image: '/img/111.jpg',
+          zvanie: 'Полковник',
+          surname: 'Шишкарев',
+          name: 'Захар',
+          otch: 'Андреевич',
+          otdel: '1 отдел КККГЫРОС'
+        }
+      ]
+    }
   },
-  components: { VideoPlay },
-};
+  components: { VideoPlay }
+}
 </script>
