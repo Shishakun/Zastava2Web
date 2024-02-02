@@ -28,12 +28,12 @@ import aiohttp
 import logging
 import pathlib
 
-from database.sqlalchemy import engine, session, base
-from database.models import *
-from inputs.yamnetrec import process_audio
+# from database.sqlalchemy import engine, session, base
+# from database.models import *
+# from inputs.yamnetrec import process_audio
 
-base.metadata.create_all(engine)
-current_session = session()
+# base.metadata.create_all(engine)
+# current_session = session()
 
 app = FastAPI()
 
