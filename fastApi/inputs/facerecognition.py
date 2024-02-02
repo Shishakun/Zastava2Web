@@ -32,19 +32,23 @@ people_folder = "people"
 if os.path.isdir(people_folder):
     for folder in os.listdir(people_folder):
         folder_path = os.path.join(people_folder, folder)
-        if os.path.isdir(folder_path):
-            for image in os.listdir(folder_path):
-                image_path = os.path.join(folder_path, image)
-                face_image = face_recognition.load_image_file(image_path)
-                face_encoding = face_recognition.face_encodings(face_image)[0]
+        logger.debug(os.path.isdir(people_folder))
+        logger.debug(folder_path)
+        for image in os.listdir(folder_path):
+            image_path = os.path.join(folder_path, image)
+            logger.debug(image_path)
+            face_image = face_recognition.load_image_file(image_path)
+            face_encoding = face_recognition.face_encodings(face_image)[0]
+            logger.debug(face_encoding)
 
-                known_face_encodings.append(face_encoding)
-                known_face_names.append(folder)
-                logger.debug(f"Loaded {image_path} for {folder}")
+            known_face_encodings.append(face_encoding)
+            known_face_names.append(folder)
+            logger.debug(f"Loaded {image_path} for {folder}")
 # Initialize video capture
 video_capture_face_recognition = cv2.VideoCapture(0)
 logger.debug('Камера запущена')
 # Initialize consecutive detections counter
+logger.debug(video_capture_face_recognition)
 consecutive_detections = 0
 
 while True:
@@ -126,3 +130,4 @@ while True:
 
 # Release video capture and close windows
 video_capture_face_recognition.release()
+cv2.destroyAllWindows()
