@@ -28,7 +28,7 @@ import aiohttp
 import logging
 import pathlib
 
-# from database.sqlalchemy import engine, session, base
+# from database.sqlalchem import engine, session, base
 # from database.models import *
 # from inputs.yamnetrec import process_audio
 

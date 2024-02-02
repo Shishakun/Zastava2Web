@@ -1,6 +1,6 @@
 from sqlalchemy import Column, BigInteger, Text
 
-from .sqlalchemy import base
+from .sqlalchem import base
 
 class Messages(base):
     __tablename__ = "messages"
