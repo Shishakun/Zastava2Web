@@ -3,7 +3,7 @@ import cv2
 import face_recognition
 import numpy as np
 import logging
-import matplotlib.pyplot as plt
+
 import math
 
 
@@ -40,8 +40,8 @@ class FaceRecognition:
 
     def encode_faces(self):
         # Load images from 'people' directory
-        for image in os.listdir('people'):
-            face_image = face_recognition.load_image_file(f'people/{image}')
+        for image in os.listdir('./inputs/people'):
+            face_image = face_recognition.load_image_file(f'./inputs/people/{image}')
             face_encoding = face_recognition.face_encodings(face_image)[
                 0]
             logger.debug(face_encoding)
@@ -133,15 +133,20 @@ class FaceRecognition:
                     (255, 255, 255),
                     1,
                 )
+            _, buffer = cv2.imencode('.jpg', frame)
+            frame_bytes = buffer.tobytes()
 
-                # Display frame
-            cv2.imshow('Video', frame)
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
-            if cv2.waitKey(1) == ord('q'):
-                break
-        # Release video capture and close windows
-        video_capture_face_recognition.release()
-        cv2.destroyAllWindows()
+        #         # Display frame
+        #     cv2.imshow('Video', frame)
+        #
+        #     if cv2.waitKey(1) == ord('q'):
+        #         break
+        # # Release video capture and close windows
+        # video_capture_face_recognition.release()
+        # cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':

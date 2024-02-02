@@ -1,7 +1,9 @@
+import uvicorn
 from loguru import logger
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
 import numpy as np
 import os
 import face_recognition
@@ -28,6 +30,7 @@ import aiohttp
 import logging
 import pathlib
 
+from fastApi.inputs.facerecognition import *
 # from database.sqlalchem import engine, session, base
 # from database.models import *
 # from inputs.yamnetrec import process_audio
@@ -47,7 +50,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 # @app.get("/yamnet")
 # async def get_yamnet_result():
 #     result = process_audio()
@@ -56,7 +58,10 @@ app.add_middleware(
 logger = logging.getLogger(__name__)
 
 
-@app.get("/ws")
-async def websocket_endpoint():
-    async with WebSocket() as websocket:
-        await websocket.accept()
+@app.get("/video-feed")
+async def video_feed():
+    fc = FaceRecognition()
+    return StreamingResponse(fc.run_recognition(), media_type="multipart/x-mixed-replace; boundary=frame")
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
