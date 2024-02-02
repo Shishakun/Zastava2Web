@@ -111,9 +111,8 @@ def yamnet_frames_model(feature_params):
     )
     patches = features_lib.spectrogram_to_patches(spectrogram, feature_params)
     predictions = yamnet(patches)
-    frames_model = Model(
-        name="yamnet_frames", inputs=waveform, outputs=[predictions, spectrogram]
-    )
+    frames_model = Model(name="yamnet_frames", inputs=waveform, outputs=predictions)
+
     return frames_model
 
 

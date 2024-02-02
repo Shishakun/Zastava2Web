@@ -1,27 +1,16 @@
 <template>
   <div class="flex">
     <div class="w-4/6 h-full">
-      <div class="flex justify-center gap-2.5 mb-2 flex-wrap">
-        <button
-          v-for="i in 30"
-          :key="i"
-          :class="[
-            'bg-[#272727] text-[#d5d5d5] items-center justify-center font-semibold rounded-xl px-2.5 py-1.5 duration-100 flex hover:bg-[#323232]',
-            {
-              'bg-whitesmoke text-[#272727] hover:bg-whitesmoke':
-                activeButton === i,
-            },
-          ]"
-          @click="handleButtonClick(i)"
-        >
-          Камера № {{ i }}
-        </button>
+      <CamereNumber />
+      <div class="flex justify-center rounded-lg min-h-[750px] max-h-[750px] border-gray-500 border-[2px] mb-3">
+        <VideoPlay />
       </div>
-      <div class="h-[750px] bg-gray-300 rounded mb-2"></div>
-      <div class="bg-[#272727] rounded font-rale text-xl font-bold text-whitesmoke px-4 py-2">Drone:0.8</div>
+      <div>
+        <YamnetOutput />
+      </div>
     </div>
     <div class="w-2/6 px-4 h-full">
-      <div class="flex justify-between items-center mb-2">
+      <div class="flex flex-wrap gap-2 items-center mb-2">
         <input
           class="border-[#535353] text-whitesmoke border-[1.5px] px-2 py-2 rounded-xl bg-inherit"
           type="text"
@@ -29,7 +18,7 @@
           placeholder="Поиск по дате"
         />
         <select
-          class="border-[#535353] text-whitesmoke border-[1.5px] px-4 py-2 rounded-xl ml-2 bg-[#0f0f0f]"
+          class="border-[#535353] text-whitesmoke border-[1.5px] px-4 py-2 rounded-xl bg-[#0f0f0f]"
           v-model="selectedClass"
           @change="filterByClass"
         >
@@ -43,7 +32,7 @@
           </option>
         </select>
         <button
-          class="border-[#535353] text-whitesmoke border-[1.5px] px-4 py-2 rounded-xl ml-2 bg-[#0f0f0f] hover:bg-[#323232] duration-150"
+          class="border-[#535353] text-whitesmoke border-[1.5px] px-4 py-2 rounded-xl bg-[#0f0f0f] hover:bg-[#323232] duration-150"
         >
           Поиск
         </button>
@@ -59,7 +48,7 @@
           <p class="text-white text-center w-1/6">{{ item.date }}</p>
           <div class="flex flex-col w-5/6">
             <p class="text-whitesmoke text-justify">{{ item.content }}</p>
-            <img :src="item.image" />
+            <img :src="item.image" class="pt-2" />
           </div>
         </div>
       </div>
@@ -68,6 +57,10 @@
 </template>
 
 <script>
+import CamereNumber from "./CamereNumber.vue";
+import VideoPlay from "./VideoPlay.vue";
+import YamnetOutput from "./YamnetOutput.vue";
+
 export default {
   data() {
     return {
@@ -119,6 +112,7 @@ export default {
       this.searchInput = ""; // Сбросить поиск при изменении класса
     },
   },
+  components: { VideoPlay, CamereNumber, YamnetOutput },
 };
 </script>
 

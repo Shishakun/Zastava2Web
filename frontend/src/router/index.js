@@ -5,16 +5,20 @@ const routes = [
     path: "/",
     name: "home",
 
-    component: () =>
-      import("../views/MainPage.vue"),
+    component: () => import("../views/MainPage.vue"),
   },
   {
-    path: "/face",
+    path: "/faceRecognition",
     name: "faceRecognition",
 
-    component: () =>
-      import("../views/FaceRecognitionPage.vue"),
-  }
+    component: () => import("../views/FaceRecognitionPage.vue"),
+  },
+  {
+    path: "/database",
+    name: "database",
+
+    component: () => import("../views/Database.vue"),
+  },
 ];
 
 const router = createRouter({

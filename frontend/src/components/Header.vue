@@ -1,29 +1,36 @@
 <template>
-  <header>
-    <nav
-      class="bg-[#0f0f0f] py-4 px-16 flex justify-between items-center border-b-[1px] border-gray-600"
+  <nav
+    class="bg-[#0f0f0f] py-4 px-16 flex justify-between items-center border-b-[1px] border-gray-600"
+  >
+    <a
+      class="font-bold uppercase text-6xl cursor-pointer text-whitesmoke hover:text-red-700 duration-100 font-rale"
+      href="/"
     >
-      <a
-        class="font-bold uppercase text-6xl cursor-pointer text-whitesmoke hover:text-red-700 duration-100 font-rale"
+      Застава
+    </a>
+    <div class="text-whitesmoke flex gap-4 font-monster text-xl font-bold">
+      <router-link
+        to="/"
+        class="hover:text-red-400 text-red-600 duration-150 animated-underline-red"
+        :class="{ 'active-red': $route.path === '/' }"
       >
-        Застава
-      </a>
-      <div class="text-whitesmoke flex gap-4 font-monster text-xl font-medium">
-        <router-link
-          to="/"
-          class="hover:text-red-400 text-red-600 duration-150 animated-underline-red"
-        >
-          Обнаружение объектов
-        </router-link>
-        <router-link
-          to="/face"
-          class="hover:text-gray-300 duration-150 animated-underline-gray"
-        >
-          Распознавание лиц
-        </router-link>
-      </div>
-    </nav>
-  </header>
+        Обнаружение объектов
+      </router-link>
+      <router-link
+        to="/faceRecognition"
+        class="hover:text-gray-300 duration-150 animated-underline-gray"
+        :class="{ 'active-gray': $route.path === '/faceRecognition' }"
+      >
+        Распознавание лиц
+      </router-link>
+      <router-link
+        to="/database"
+        class="hover:text-gray-300 duration-150 animated-underline-gray"
+      >
+        База данных
+      </router-link>
+    </div>
+  </nav>
 </template>
 
 <style scoped>
@@ -46,7 +53,8 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.animated-underline-red:hover::before {
+.animated-underline-red:hover::before,
+.active-red .animated-underline-red::before {
   transform: scaleX(1);
   transform-origin: left;
 }
@@ -70,9 +78,9 @@
   transition: transform 0.3s ease-in-out;
 }
 
-.animated-underline-gray:hover::before {
+.animated-underline-gray:hover::before,
+.active-gray .animated-underline-gray::before {
   transform: scaleX(1);
   transform-origin: left;
 }
 </style>
-: создано с помощью chatgpt-russia.org
