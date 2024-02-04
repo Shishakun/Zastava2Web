@@ -139,16 +139,6 @@ class FaceRecognition:
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
 
-        #         # Display frame
-        #     cv2.imshow('Video', frame)
-        #
-        #     if cv2.waitKey(1) == ord('q'):
-        #         break
-        # # Release video capture and close windows
-        # video_capture_face_recognition.release()
-        # cv2.destroyAllWindows()
-
-
 if __name__ == '__main__':
     fr = FaceRecognition()
     fr.run_recognition()

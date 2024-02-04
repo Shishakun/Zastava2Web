@@ -1,47 +1,54 @@
 <template>
-  <div class="max-h-[660px] w-full">
-    <div class="flex justify-start w-full">
-      <button
-        class="bg-gray-700 hover:bg-gray-800 duration-150 text-whitesmoke px-4 py-2 w-1/4 font-semibold rounded-lg"
-        @click="toggleWebcam"
-      >
-        {{ webcamOn ? 'Turn off webcam' : 'Turn on webcam' }}
-      </button>
-    </div>
-    <video
-      ref="video"
-      autoplay
-      playsinline
-      :style="{ display: webcamOn ? 'block' : 'none' }"
-    ></video>
+  <div>
+    <button @click="getVideoFeed">Get Video Feed</button>
+    <video ref="video" width="640" height="480" autoplay></video>
   </div>
 </template>
+
 <script>
 import axios from 'axios'
 
 export default {
+  name: 'VideoFeed',
   data () {
     return {
-      webcamOn: false,
-      videoStream: null
+      source: null
     }
   },
   methods: {
-    async toggleWebcam () {
-      if (!this.webcamOn) {
-        try {
-          const response = await axios.get('/video_feed', {
-            responseType: 'stream'
-          })
-          this.videoStream = response.data
-          this.$refs.video.srcObject = this.videoStream
-          this.webcamOn = true
-        } catch (error) {
-          console.error('Error fetching video feed:', error)
+    async getVideoFeed () {
+      this.updateVideoFeed()
+      setInterval(this.updateVideoFeed, 1000)
+    },
+    async updateVideoFeed () {
+      try {
+        const response = await axios.get('http://localhost:8000/facerec/videofeed', {
+          responseType: 'stream'
+        })
+
+        const reader = response.data.getReader()
+        const decoder = new TextDecoder()
+
+        while (true) {
+          const { value, done } = await reader.read()
+
+          if (done) {
+            break
+          }
+
+          const boundary = '--frame\r\n'
+          const boundaryIndex = value.indexOf(boundary)
+
+          if (boundaryIndex > -1) {
+            const frame = value.slice(0, boundaryIndex)
+            const blob = new Blob([frame], { type: 'image/jpeg' })
+            const url = URL.createObjectURL(blob)
+
+            this.$refs.video.src = url
+          }
         }
-      } else {
-        this.$refs.video.srcObject = null
-        this.webcamOn = false
+      } catch (error) {
+        console.error('Error fetching video feed:', error)
       }
     }
   }

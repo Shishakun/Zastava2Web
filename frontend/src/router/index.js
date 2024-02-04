@@ -8,8 +8,8 @@ const routes = [
     component: () => import("../views/MainPage.vue"),
   },
   {
-    path: "/faceRecognition",
-    name: "faceRecognition",
+    path: "/facerec",
+    name: "facerec",
 
     component: () => import("../views/FaceRecognitionPage.vue"),
   },

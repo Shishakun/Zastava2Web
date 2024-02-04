@@ -17,9 +17,9 @@
         Обнаружение объектов
       </router-link>
       <router-link
-        to="/faceRecognition"
+        to="/facerec"
         class="hover:text-gray-300 duration-150 animated-underline-gray"
-        :class="{ 'active-gray': $route.path === '/faceRecognition' }"
+        :class="{ 'active-gray': $route.path === '/facerec' }"
       >
         Распознавание лиц
       </router-link>
