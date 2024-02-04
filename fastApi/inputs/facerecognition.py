@@ -15,9 +15,9 @@ def face_confidence(face_distance, face_match_threshold=0.6):
         return str(round(linear_val * 100, 2)) + "%"
     else:
         value = (
-            linear_val
-            + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))
-        ) * 100
+                        linear_val
+                        + ((1.0 - linear_val) * math.pow((linear_val - 0.5) * 2, 0.2))
+                ) * 100
         return str(round(value, 2)) + "%"
 
 
@@ -133,11 +133,13 @@ class FaceRecognition:
                     (255, 255, 255),
                     1,
                 )
+            cv2.imshow("Cam", frame)
+
             _, buffer = cv2.imencode('.jpg', frame)
             frame_bytes = buffer.tobytes()
 
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n')
+            yield b'--frame\r\n'b'Content-Type: image/jpeg\r\n\r\n' + frame_bytes + b'\r\n'
+
 
 if __name__ == '__main__':
     fr = FaceRecognition()
