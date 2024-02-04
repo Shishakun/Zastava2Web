@@ -22,7 +22,7 @@ export default {
     },
     async updateVideoFeed () {
       try {
-        const response = await axios.get('http://localhost:8000/facerec/videofeed', {
+        const response = await axios.get('http://localhost:8080/videofeed', {
           responseType: 'stream'
         })
 
