@@ -11,15 +11,15 @@
     <div class="text-whitesmoke flex gap-4 font-monster text-xl font-bold">
       <router-link
         to="/"
-        class="hover:text-red-400 text-red-600 duration-150 animated-underline-red"
-        :class="{ 'active-red': $route.path === '/' }"
+        class="hover:text-gray-300 duration-150 animated-underline-red"
+        :class="{ 'text-red-400': $route.path === '/' }"
       >
         Обнаружение объектов
       </router-link>
       <router-link
         to="/facerec"
         class="hover:text-gray-300 duration-150 animated-underline-gray"
-        :class="{ 'active-gray': $route.path === '/facerec' }"
+        :class="{ 'text-red-400': $route.path === '/face_recognition' }"
       >
         Распознавание лиц
       </router-link>

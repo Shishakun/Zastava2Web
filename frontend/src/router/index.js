@@ -3,12 +3,12 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    name: "home",
+    name: "objectDetection",
 
-    component: () => import("../views/MainPage.vue"),
+    component: () => import("../views/ObjectDetectionPage.vue"),
   },
   {
-    path: "/facerec",
+    path: "/face_recognition",
     name: "facerec",
 
     component: () => import("../views/FaceRecognitionPage.vue"),
